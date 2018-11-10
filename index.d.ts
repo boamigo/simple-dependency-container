@@ -1,4 +1,4 @@
-export interface SimpleDependencyContainer {
+export class SimpleDependencyContainer {
 	registerType(ctor: IDependencyConstructor, key?: string): Dep;
 	getInstance(ctor: IDependencyConstructor, key?: string): any;
 }

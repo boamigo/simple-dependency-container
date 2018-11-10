@@ -1,0 +1,19 @@
+{
+  "name": "simple-dependency-container",
+  "version": "0.1.0",
+  "description": "dependency container for nodejs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/boamigo/simple-dependency-container.git"
+  },
+  "author": "Vladimir Husnullin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/boamigo/simple-dependency-container/issues"
+  },
+  "homepage": "https://github.com/boamigo/simple-dependency-container#readme"
+}
