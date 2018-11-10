@@ -1,5 +1,6 @@
 # simple-dependency-container
 Provides dependency injection for NodeJS apps
+
 No need to use Annotations and Strings to identify dependencies, the actual Class reference is enough.
 
 main.ts
@@ -25,10 +26,10 @@ import { SimpleDependencyContainer } from 'simple-dependency-container';
 import { Dependency1, Dependency2, Parent1 } from './main';
 
 let container = new SimpleDependencyContainer();
-container.registerType(Dependency1);
-container.registerType(Dependency2);
+container.registerType(Dependency1);  // registered as singleton
+container.registerType(Dependency2);  // registered as singleton
 
-container.registerType(Parent1)
+container.registerType(Parent1)  // registered as singleton
 	.withArg(Dependency1)
 	.withArg(Dependency2)  
 	.withValue('Injected Value');
