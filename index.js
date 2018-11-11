@@ -5,24 +5,24 @@ class SimpleDependencyContainer {
         this.deps = [];
     }
     registerType(ctor, key) {
-        let dep = new Dep(ctor);
+        let dep = new Dep(ctor, key);
         this.deps.push(dep);
         return dep;
     }
     getInstance(ctor, key) {
-        let targetKey = (key || '') + ':' + ctor.name;
-        return this.getInstanceByTargetKey(targetKey);
+        let id = (key || '') + ':' + ctor.name;
+        return this.getInstanceById(id);
     }
-    getInstanceByTargetKey(targetKey) {
+    getInstanceById(id) {
         let targetDep;
         for (let dep of this.deps) {
-            if (targetKey === dep.key) {
+            if (id === dep.id) {
                 targetDep = dep;
                 break;
             }
         }
         if (!targetDep) {
-            throw 'Dependency is not registered: ' + targetKey;
+            throw 'Dependency is not registered: ' + id;
         }
         if (targetDep.instance) {
             targetDep.instance = targetDep.instance;
@@ -33,11 +33,11 @@ class SimpleDependencyContainer {
         }
         let args = [];
         for (let arg of targetDep.args) {
-            if (typeof arg === 'string') {
-                args.push(this.getInstanceByTargetKey(arg));
+            if (arg.id) {
+                args.push(this.getInstanceById(arg.id));
             }
             else {
-                args.push(arg);
+                args.push(arg.value);
             }
         }
         targetDep.instance = new targetDep.ctor(...args);
@@ -47,18 +47,20 @@ class SimpleDependencyContainer {
 exports.SimpleDependencyContainer = SimpleDependencyContainer;
 class Dep {
     constructor(ctor, key) {
-        this.key = (key || '') + ':' + ctor.name;
+        this.id = (key || '') + ':' + ctor.name;
         this.ctor = ctor;
         this.args = [];
     }
-    withArg(ctor, key) {
-        this.args.push((key || '') + ':' + ctor.name);
+    argDependency(ctor, key) {
+        this.args.push({
+            id: (key || '') + ':' + ctor.name
+        });
         return this;
     }
-    withValue(value) {
-        this.args.push(value);
+    argValue(value) {
+        this.args.push({
+            value: value
+        });
         return this;
     }
 }
-
-//# sourceMappingURL=simple-dependency-container.js.map

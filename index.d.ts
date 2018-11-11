@@ -8,6 +8,6 @@ export interface IDependencyConstructor {
 }
 
 interface Dep {
-	withArg(ctor: Function, key?: string): Dep;
-	withValue(value: any): Dep;
+	argDependency(ctor: Function, key?: string): Dep;
+	argValue(value: any): Dep;
 }

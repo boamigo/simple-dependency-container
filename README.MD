@@ -30,9 +30,9 @@ container.registerType(Dependency1);  // registered as singleton
 container.registerType(Dependency2);  // registered as singleton
 
 container.registerType(Parent1)  // registered as singleton
-	.withArg(Dependency1)
-	.withArg(Dependency2)  
-	.withValue('Injected Value');
+	.argDependency(Dependency1)
+	.argDependency(Dependency2)  
+	.argValue('Injected Value');
 
 export default container;
 ```
